@@ -9,12 +9,6 @@ const port = process.env.PORT || 3300;
 app.use(cors());
 app.use(express.json());
 
-//  <></>
-//
-
-// const uri =
-//   "mongodb+srv://coffee-store:04GbPOnjXlOwxwPY@cluster0.7dbji.mongodb.net/?retryWrites=true&w=majority";
-
 const uri = `mongodb+srv://${process.env.DB_NAMEUSER}:${process.env.DB_PASSCODE}@cluster0.7dbji.mongodb.net/?retryWrites=true&w=majority`;
 
 const client = new MongoClient(uri, {
