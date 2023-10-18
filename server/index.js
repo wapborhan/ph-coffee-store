@@ -23,14 +23,15 @@ async function run() {
   try {
     await client.connect();
 
-    const coffeCOllection = client.db("coffeDB").collection("coffe");
+    const coffeCollection = client.db("coffeDB").collection("coffe");
+    const userCollection = client.db("coffeDB").collection("user");
 
     app.get("/", (req, res) => {
       res.send("hello");
     });
 
     app.get("/coffee", async (req, res) => {
-      const find = coffeCOllection.find();
+      const find = coffeCollection.find();
       const result = await find.toArray();
       res.send(result);
     });
@@ -38,13 +39,13 @@ async function run() {
     app.get("/coffee/:id", async (req, res) => {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
-      const result = await coffeCOllection.findOne(query);
+      const result = await coffeCollection.findOne(query);
       res.send(result);
     });
 
     app.post("/add-coffee", async (req, res) => {
       const newCoffee = req.body;
-      const result = await coffeCOllection.insertOne(newCoffee);
+      const result = await coffeCollection.insertOne(newCoffee);
       res.send(result);
     });
 
@@ -64,7 +65,7 @@ async function run() {
           photoUrl: updateCoffee.photoUrl,
         },
       };
-      const result = await coffeCOllection.updateOne(
+      const result = await coffeCollection.updateOne(
         filter,
         newCoffeeData,
         options
@@ -75,7 +76,19 @@ async function run() {
     app.delete("/coffee/:id", async (req, res) => {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
-      const result = await coffeCOllection.deleteOne(query);
+      const result = await coffeCollection.deleteOne(query);
+      res.send(result);
+    });
+
+    app.get("/users", async (req, res) => {
+      const cursor = userCollection.find();
+      const result = await cursor.toArray();
+      res.send(result);
+    });
+
+    app.post("/users", async (req, res) => {
+      const newUser = req.body;
+      const result = await userCollection.insertOne(newUser);
       res.send(result);
     });
 

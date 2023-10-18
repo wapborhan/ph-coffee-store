@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import BackToHomePage from "./BackToHomePage";
 
 const AddCoffee = () => {
   const [coffee, setCoffee] = useState();
@@ -44,7 +45,7 @@ const AddCoffee = () => {
   return (
     <div className="container max-w-6xl mx-auto">
       <div className="back">
-        <Link to="/">{"<-    "} Back to Home</Link>{" "}
+        <BackToHomePage />
       </div>
       <div className="sect bg-[#F4F3F0] py-4 w-full mx-auto">
         <div className="content space-y-5">

@@ -4,18 +4,36 @@ import App from "./App.jsx";
 import Root from "./layout/Root.jsx";
 import AddCoffee from "./components/AddCoffee.jsx";
 import UpdateCoffee from "./components/UpdateCoffee.jsx";
+import SignUp from "./components/auth/SIgnUp.jsx";
+import SignIn from "./components/auth/SIgnIn.jsx";
+import Users from "./components/Users.jsx";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import ErorElement from "./components/ErorElement.jsx";
+import AuthProvider from "./provider/AuthProvider.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
+    errorElement: <ErorElement />,
     children: [
       {
         path: "/",
         element: <App />,
         loader: () => fetch("http://localhost:3300/coffee"),
+      },
+      {
+        path: "/signup",
+        element: <SignUp />,
+      },
+      {
+        path: "/signin",
+        element: <SignIn />,
+      },
+      {
+        path: "/users",
+        element: <Users />,
       },
       {
         path: "/add-coffee",
@@ -32,6 +50,8 @@ const router = createBrowserRouter([
 ]);
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </React.StrictMode>
 );
