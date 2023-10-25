@@ -19,7 +19,7 @@ function App() {
         </NavLink>
       </div>
       <div className="grid grid-cols-2 gap-5">
-        {coffes.map((coffe, idx) => {
+        {coffes?.map((coffe, idx) => {
           return (
             <CoffeCard
               key={idx}
